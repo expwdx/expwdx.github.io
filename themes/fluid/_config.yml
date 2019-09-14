@@ -18,7 +18,7 @@ title_join_string: ' ~ '  # 浏览器标签页中的标题分隔符，效果： 
 source_base_path: / # 静态资源目录，如使用 OSS 或 CDN（需要开启跨域），可修改成 url，其他非特殊情况请保持默认
 
 highlight: # 代码高亮
-  enable: true
+  enable: false
   theme: tomorrow-night-eighties # available: github-v2 | tomorrow | tomorrow-night | tomorrow-night-eighties，更多主题可从 https://jmblog.github.io/color-themes-for-google-code-prettify/ 获取，保存为 `*.min.css` 到 `source/lib/prettify/`，在其中 .prettyprint{ background: ***; ...} 的background 值后加上 !important，例如：.prettyprint{background:#fafbfc!important; ...}
 
 fun_features: # 一些好玩的功能
