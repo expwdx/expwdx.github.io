@@ -80,8 +80,8 @@ plugins: hexo-generate-feed
 ## Docs: https://hexo.io/docs/deployment.html
 deploy: 
   type: git
-  repo: https://github.com/expwdx/MyBlog.git
-branch: pages
+  repo: git@github.com:expwdx/expwdx.github.io.git
+branch: gp-pages
 
 
 jsonContent:
