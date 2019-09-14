@@ -81,7 +81,7 @@ plugins: hexo-generate-feed
 deploy: 
   type: git
   repo: git@github.com:expwdx/expwdx.github.io.git
-branch: gp-pages
+branch: master
 
 
 jsonContent:
