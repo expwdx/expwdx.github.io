@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Ubuntu16.04&amp;14.04下的docker安装 | Wangdx&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="安装步骤卸载旧版本1$ sudo apt-get remove docker docker-engine docker.io 安装linux的额外镜像包（仅ubuntu14.04需要）执行如下操作，允许你使用aufs存储驱动。ubuntu16.04使用默认的overlay2存储驱动。 12345$ sudo apt-get update$ sudo apt-get install \    lin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu16.04&amp;14.04下的docker安装">
+<meta property="og:url" content="https://expwdx.github.io/2019/09/14/Docker安装方法/index.html">
+<meta property="og:site_name" content="Wangdx&#39;s Blog">
+<meta property="og:description" content="安装步骤卸载旧版本1$ sudo apt-get remove docker docker-engine docker.io 安装linux的额外镜像包（仅ubuntu14.04需要）执行如下操作，允许你使用aufs存储驱动。ubuntu16.04使用默认的overlay2存储驱动。 12345$ sudo apt-get update$ sudo apt-get install \    lin">
+<meta property="og:locale" content="English">
+<meta property="og:updated_time" content="2019-09-14T11:44:13.526Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu16.04&amp;14.04下的docker安装">
+<meta name="twitter:description" content="安装步骤卸载旧版本1$ sudo apt-get remove docker docker-engine docker.io 安装linux的额外镜像包（仅ubuntu14.04需要）执行如下操作，允许你使用aufs存储驱动。ubuntu16.04使用默认的overlay2存储驱动。 12345$ sudo apt-get update$ sudo apt-get install \    lin">
+  
+    <link rel="alternate" href="/atom.xml" title="Wangdx&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Wangdx&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Do myself</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://expwdx.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Docker安装方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/14/Docker安装方法/" class="article-date">
+  <time datetime="2019-09-14T11:44:13.526Z" itemprop="datePublished">2019-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ubuntu16.04&amp;14.04下的docker安装
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h4 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine docker.io</span><br></pre></td></tr></table></figure>
+<h4 id="安装linux的额外镜像包（仅ubuntu14-04需要）"><a href="#安装linux的额外镜像包（仅ubuntu14-04需要）" class="headerlink" title="安装linux的额外镜像包（仅ubuntu14.04需要）"></a>安装linux的额外镜像包（仅ubuntu14.04需要）</h4><p>执行如下操作，允许你使用aufs存储驱动。ubuntu16.04使用默认的overlay2存储驱动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install \</span><br><span class="line">    linux-image-extra-$(uname -r) \</span><br><span class="line">    linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
+<h4 id="设置安装源"><a href="#设置安装源" class="headerlink" title="设置安装源"></a>设置安装源</h4><p>通过如下步骤，设置安装源仓库，这里我们使用阿里源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line">    </span><br><span class="line">$ curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -  </span><br><span class="line"></span><br><span class="line">$ sudo add-apt-repository &quot;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="安装docker社区版"><a href="#安装docker社区版" class="headerlink" title="安装docker社区版"></a>安装docker社区版</h4><p>通过如下命令将安装docker最新版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure>
+<h4 id="检验是否安装成功"><a href="#检验是否安装成功" class="headerlink" title="检验是否安装成功"></a>检验是否安装成功</h4><p>通过运行hello-world实例便可检验是否安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run hello-world</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建一个docker用户组-可选"><a href="#创建一个docker用户组-可选" class="headerlink" title="创建一个docker用户组(可选)"></a>创建一个docker用户组(可选)</h4><p>docker后台进程是绑定的Unix的socket而不是TCP端口。默认情况下，Unix的socket属于用户root，其它用户要使用要通过sudo命令。由于这个原因，docker daemon通常使用root用户运行。</p>
+<p>　　为了避免使用sudo当你使用docker命令的时候，创建一个Unix组名为docker并且添加用户。当docker daemon启动，它会分配Unix socket读写权限给所属的docker组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo groupadd docker</span><br><span class="line"></span><br><span class="line">$ sudo usermod -aG docker $USER</span><br></pre></td></tr></table></figure>
+<p>校验生效。通过运行docker命令不带sudo：docker run hello-world，如果失败会有以下类似的信息：Cannot connect to the Docker daemon. Is ‘docker daemon’ running on this host?确保DOCKER_HOST环境变量没有设置。如果有取消它。</p>
+<h2 id="卸载方法"><a href="#卸载方法" class="headerlink" title="卸载方法"></a>卸载方法</h2><h4 id="卸载docker社区版"><a href="#卸载docker社区版" class="headerlink" title="卸载docker社区版:"></a>卸载docker社区版:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get purge docker-ce</span><br></pre></td></tr></table></figure>
+<h4 id="删除镜像、容器、卷"><a href="#删除镜像、容器、卷" class="headerlink" title="删除镜像、容器、卷"></a>删除镜像、容器、卷</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm -rf /var/lib/docker</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">Install Docker in ubuntu</a><br><a href="https://www.cnblogs.com/lighten/p/6034984.html" target="_blank" rel="noopener">ubuntu16.04安装docker</a>  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://expwdx.github.io/2019/09/14/Docker安装方法/" data-id="ck0jl5nkh00025laattdn2m9q" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/14/gitbook文档部署/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          docker配合gitbook部署文档
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/14/基于docker的 spark on mesos 部署/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">基于docker的Spark on Mesos部署</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/14/Docker Compose安装/">Docker Compose安装</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/14/gitbook文档部署/">docker配合gitbook部署文档</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/14/Docker安装方法/">Ubuntu16.04&amp;14.04下的docker安装</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/14/基于docker的 spark on mesos 部署/">基于docker的Spark on Mesos部署</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/14/通过docker搭建zookeeper集群/">通过docker搭建zookeeper</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Wangdx<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
