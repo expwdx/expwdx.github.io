@@ -1,3 +1,7 @@
+---
+title: Docker Compose安装
+---
+
 ## 安装 Docker Compose
 
 #### 官方安装方法
