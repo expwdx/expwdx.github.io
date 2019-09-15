@@ -143,14 +143,15 @@
     
     
     <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/09/14/gitbook文档部署/">
-        <p class="h4 index-header">docker配合gitbook部署文档</p>
+      <a href="/2019/09/14/Docker安装方法/">
+        <p class="h4 index-header">Ubuntu16.04&amp;14.04下的docker安装</p>
         <div class="index-excerpt">
           
-            <div class="index-text mb-1">安装gitbook1cnpm install -g gitbook-cli
-构建目录结构12345nginx-docker    --default.conf    --docker-compose.yml    --web        ---note
-拉取文档仓库并编译1git pull &amp;&amp; rm -rf _book &amp;&amp; gitbook install &amp;&amp; gitbook build .
-编写nginx服务配置123456789101112131415➜  nginx-docker cat default.conf server &#123;  listen 80;  server_name xxx.xxx.xx.xxx;  root /web;  location /note &#123;    alias /web/note/_book;    index index.html;  &#125;  location  ^~ gitbook/ &#123;    root /web/gitbook/;   &#125;&#12</div>
+            <div class="index-text mb-1">安装步骤卸载旧版本1$ sudo apt-get remove docker docker-engine docker.io
+安装linux的额外镜像包（仅ubuntu14.04需要）执行如下操作，允许你使用aufs存储驱动。ubuntu16.04使用默认的overlay2存储驱动。
+12345$ sudo apt-get update$ sudo apt-get install \    linux-image-extra-$(uname -r) \    linux-image-extra-virtual
+设置安装源通过如下步骤，设置安装源仓库，这里我们使用阿里源
+1234567$ sudo apt-get update$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common    $ curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -  $ </div>
           
         </div>
       </a>
@@ -169,15 +170,14 @@
     
     
     <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/09/14/Docker安装方法/">
-        <p class="h4 index-header">Ubuntu16.04&amp;14.04下的docker安装</p>
+      <a href="/2019/09/14/gitbook文档部署/">
+        <p class="h4 index-header">docker配合gitbook部署文档</p>
         <div class="index-excerpt">
           
-            <div class="index-text mb-1">安装步骤卸载旧版本1$ sudo apt-get remove docker docker-engine docker.io
-安装linux的额外镜像包（仅ubuntu14.04需要）执行如下操作，允许你使用aufs存储驱动。ubuntu16.04使用默认的overlay2存储驱动。
-12345$ sudo apt-get update$ sudo apt-get install \    linux-image-extra-$(uname -r) \    linux-image-extra-virtual
-设置安装源通过如下步骤，设置安装源仓库，这里我们使用阿里源
-1234567$ sudo apt-get update$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common    $ curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -  $ </div>
+            <div class="index-text mb-1">安装gitbook1cnpm install -g gitbook-cli
+构建目录结构12345nginx-docker    --default.conf    --docker-compose.yml    --web        ---note
+拉取文档仓库并编译1git pull &amp;&amp; rm -rf _book &amp;&amp; gitbook install &amp;&amp; gitbook build .
+编写nginx服务配置123456789101112131415➜  nginx-docker cat default.conf server &#123;  listen 80;  server_name xxx.xxx.xx.xxx;  root /web;  location /note &#123;    alias /web/note/_book;    index index.html;  &#125;  location  ^~ gitbook/ &#123;    root /web/gitbook/;   &#125;&#12</div>
           
         </div>
       </a>
@@ -315,7 +315,7 @@ zookeeper的docker容器选择在参</div>
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -324,7 +324,7 @@ zookeeper的docker容器选择在参</div>
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+                 for="local-search-input">keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
