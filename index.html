@@ -55,35 +55,35 @@
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link" href="/">Home</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
+            <a class="nav-link" href="/archives/">Archives</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/categories/">Categories</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
+            <a class="nav-link" href="/tags/">Tags</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
+            <a class="nav-link" href="/about/">About</a>
           </li>
         
         
@@ -136,45 +136,7 @@
     
     
     <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/09/14/Docker Compose安装/">
-        <p class="h4 index-header">Docker Compose安装</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">安装 Docker Compose官方安装方法
-运行如下命令下载最新版本$ sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-
-添加执行权限$ sudo chmod +x /usr/local/bin/docker-compose
-
-安装 completion 以便能在bash和zsh的shell中运行completion命令（可选）
-
-测试安装是否成功
-$ docker-compose --version
-docker-compose version 1.22.0, build 1719ceb
-
-
-加速通道安装Docker Compose 存放在Git Hub，不太稳定。你可以也通过执行下面的命令，高速安装Docker Compose。
-$ sudo curl -L https://get.daocloud.io/docker/compose/rel</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/09/14/Docker安装方法/">
+      <a href="/2019/12/11/Docker安装方法/">
         <p class="h4 index-header">Ubuntu16.04&amp;14.04下的docker安装</p>
         
         
@@ -201,7 +163,7 @@ $ sudo ad</div>
 
       <div>
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-11&nbsp;&nbsp;
         
         
         
@@ -213,55 +175,7 @@ $ sudo ad</div>
     
     
     <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/09/14/gitbook文档部署/">
-        <p class="h4 index-header">docker配合gitbook部署文档</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">安装gitbookcnpm install -g gitbook-cli
-构建目录结构nginx-docker
-    --default.conf
-    --docker-compose.yml
-    --web
-        ---note
-拉取文档仓库并编译git pull &amp;&amp; rm -rf _book &amp;&amp; gitbook install &amp;&amp; gitbook build .
-编写nginx服务配置➜  nginx-docker cat default.conf 
-server {
-  listen 80;
-  server_name xxx.xxx.xx.xxx;
-  root /web;
-
-  location /note {
-    alias /web/note/_book;
-    index index.html;
-  }
-
-  location  ^~ gitbook/ {
-    root /web/gitbook/;
-   }
-}
-通过docker启动编写docker-compse.yml
-➜  ngin</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/09/14/hello-world/">
+      <a href="/2019/12/11/hello-world/">
         <p class="h4 index-header">Hello World</p>
         
         
@@ -287,7 +201,7 @@ More info: Deployment
 
       <div>
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-11&nbsp;&nbsp;
         
         
         
@@ -299,7 +213,7 @@ More info: Deployment
     
     
     <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/09/14/基于docker的 spark on mesos 部署/">
+      <a href="/2019/12/11/基于docker的 spark on mesos 部署/">
         <p class="h4 index-header">基于docker的Spark on Mesos部署</p>
         
         
@@ -339,7 +253,7 @@ $ HOST_IP=1</div>
 
       <div>
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-11&nbsp;&nbsp;
         
         
         
@@ -351,7 +265,55 @@ $ HOST_IP=1</div>
     
     
     <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/09/14/通过docker搭建zookeeper集群/">
+      <a href="/2019/12/11/gitbook文档部署/">
+        <p class="h4 index-header">docker配合gitbook部署文档</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">安装gitbookcnpm install -g gitbook-cli
+构建目录结构nginx-docker
+    --default.conf
+    --docker-compose.yml
+    --web
+        ---note
+拉取文档仓库并编译git pull &amp;&amp; rm -rf _book &amp;&amp; gitbook install &amp;&amp; gitbook build .
+编写nginx服务配置➜  nginx-docker cat default.conf 
+server {
+  listen 80;
+  server_name xxx.xxx.xx.xxx;
+  root /web;
+
+  location /note {
+    alias /web/note/_book;
+    index index.html;
+  }
+
+  location  ^~ gitbook/ {
+    root /web/gitbook/;
+   }
+}
+通过docker启动编写docker-compse.yml
+➜  ngin</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-11&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/11/通过docker搭建zookeeper集群/">
         <p class="h4 index-header">通过docker搭建zookeeper</p>
         
         
@@ -368,7 +330,45 @@ zookeeper的docker容器选择在参</div>
 
       <div>
         
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-11&nbsp;&nbsp;
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2019/12/11/Docker Compose安装/">
+        <p class="h4 index-header">Docker Compose安装</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">安装 Docker Compose官方安装方法
+运行如下命令下载最新版本$ sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+添加执行权限$ sudo chmod +x /usr/local/bin/docker-compose
+
+安装 completion 以便能在bash和zsh的shell中运行completion命令（可选）
+
+测试安装是否成功
+$ docker-compose --version
+docker-compose version 1.22.0, build 1719ceb
+
+
+加速通道安装Docker Compose 存放在Git Hub，不太稳定。你可以也通过执行下面的命令，高速安装Docker Compose。
+$ sudo curl -L https://get.daocloud.io/docker/compose/rel</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-11&nbsp;&nbsp;
         
         
         
@@ -400,7 +400,7 @@ zookeeper的docker容器选择在参</div>
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -409,7 +409,7 @@ zookeeper的docker容器选择在参</div>
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+                 for="local-search-input">keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

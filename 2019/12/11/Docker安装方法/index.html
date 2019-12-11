@@ -14,7 +14,7 @@
   <meta name="description" content>
   <meta name="author" content="Wangdx">
   <meta name="keywords" content>
-  <title>归档 ~ Wangdx&#39;s Blog</title>
+  <title>Ubuntu16.04&amp;14.04下的docker安装 ~ Wangdx&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -35,7 +35,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -55,35 +55,35 @@
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link" href="/">Home</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
+            <a class="nav-link" href="/archives/">Archives</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/categories/">Categories</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
+            <a class="nav-link" href="/tags/">Tags</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
+            <a class="nav-link" href="/about/">About</a>
           </li>
         
         
@@ -98,7 +98,7 @@
 </nav>
 
     <div class="view intro-2" id="background"
-         style="background: url('/img/archive.jpg')no-repeat center center;
+         style="background: url('/img/post.jpg')no-repeat center center;
            background-size: cover;
            background-attachment: fixed;">
       <div class="full-bg-img">
@@ -108,6 +108,41 @@
               
             </span>
 
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  Wednesday, December 11th 2019, 10:46 pm
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    438 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
             
           </div>
 
@@ -119,65 +154,87 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 6 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2019</p>
-    
-    <a href="/2019/09/14/Docker Compose安装/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Docker Compose安装</span>
-      <span style="float: right;">09-14</span>
-    </a>
-  
-    
-    <a href="/2019/09/14/Docker安装方法/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Ubuntu16.04&amp;14.04下的docker安装</span>
-      <span style="float: right;">09-14</span>
-    </a>
-  
-    
-    <a href="/2019/09/14/gitbook文档部署/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">docker配合gitbook部署文档</span>
-      <span style="float: right;">09-14</span>
-    </a>
-  
-    
-    <a href="/2019/09/14/hello-world/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Hello World</span>
-      <span style="float: right;">09-14</span>
-    </a>
-  
-    
-    <a href="/2019/09/14/基于docker的 spark on mesos 部署/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">基于docker的Spark on Mesos部署</span>
-      <span style="float: right;">09-14</span>
-    </a>
-  
-    
-    <a href="/2019/09/14/通过docker搭建zookeeper集群/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">通过docker搭建zookeeper</span>
-      <span style="float: right;">09-14</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h4 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h4><pre><code>$ sudo apt-get remove docker docker-engine docker.io
+</code></pre><h4 id="安装linux的额外镜像包（仅ubuntu14-04需要）"><a href="#安装linux的额外镜像包（仅ubuntu14-04需要）" class="headerlink" title="安装linux的额外镜像包（仅ubuntu14.04需要）"></a>安装linux的额外镜像包（仅ubuntu14.04需要）</h4><p>执行如下操作，允许你使用aufs存储驱动。ubuntu16.04使用默认的overlay2存储驱动。</p>
+<pre><code>$ sudo apt-get update
 
-              </div>
-            </div>
+$ sudo apt-get install \
+    linux-image-extra-$(uname -r) \
+    linux-image-extra-virtual
+</code></pre><h4 id="设置安装源"><a href="#设置安装源" class="headerlink" title="设置安装源"></a>设置安装源</h4><p>通过如下步骤，设置安装源仓库，这里我们使用阿里源</p>
+<pre><code>$ sudo apt-get update
+
+$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+
+$ curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -  
+
+$ sudo add-apt-repository &quot;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;
+</code></pre><h4 id="安装docker社区版"><a href="#安装docker社区版" class="headerlink" title="安装docker社区版"></a>安装docker社区版</h4><p>通过如下命令将安装docker最新版本</p>
+<pre><code>$ sudo apt-get update
+
+$ sudo apt-get install docker-ce
+</code></pre><h4 id="检验是否安装成功"><a href="#检验是否安装成功" class="headerlink" title="检验是否安装成功"></a>检验是否安装成功</h4><p>通过运行hello-world实例便可检验是否安装成功</p>
+<pre><code>$ sudo docker run hello-world
+</code></pre><h4 id="创建一个docker用户组-可选"><a href="#创建一个docker用户组-可选" class="headerlink" title="创建一个docker用户组(可选)"></a>创建一个docker用户组(可选)</h4><p>docker后台进程是绑定的Unix的socket而不是TCP端口。默认情况下，Unix的socket属于用户root，其它用户要使用要通过sudo命令。由于这个原因，docker daemon通常使用root用户运行。</p>
+<p>　　为了避免使用sudo当你使用docker命令的时候，创建一个Unix组名为docker并且添加用户。当docker daemon启动，它会分配Unix socket读写权限给所属的docker组。</p>
+<pre><code>$ sudo groupadd docker
+
+$ sudo usermod -aG docker $USER
+</code></pre><p>校验生效。通过运行docker命令不带sudo：docker run hello-world，如果失败会有以下类似的信息：Cannot connect to the Docker daemon. Is ‘docker daemon’ running on this host?确保DOCKER_HOST环境变量没有设置。如果有取消它。</p>
+<h2 id="卸载方法"><a href="#卸载方法" class="headerlink" title="卸载方法"></a>卸载方法</h2><h4 id="卸载docker社区版"><a href="#卸载docker社区版" class="headerlink" title="卸载docker社区版:"></a>卸载docker社区版:</h4><pre><code>$ sudo apt-get purge docker-ce 
+</code></pre><h4 id="删除镜像、容器、卷"><a href="#删除镜像、容器、卷" class="headerlink" title="删除镜像、容器、卷"></a>删除镜像、容器、卷</h4><pre><code>$ sudo rm -rf /var/lib/docker
+</code></pre><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">Install Docker in ubuntu</a><br><a href="https://www.cnblogs.com/lighten/p/6034984.html" target="_blank" rel="noopener">ubuntu16.04安装docker</a>  </p>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -193,7 +250,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -202,7 +259,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+                 for="local-search-input">keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -252,6 +309,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -292,7 +354,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "Ubuntu16.04&14.04下的docker安装&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

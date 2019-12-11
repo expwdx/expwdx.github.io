@@ -14,7 +14,7 @@
   <meta name="description" content>
   <meta name="author" content="Wangdx">
   <meta name="keywords" content>
-  <title>通过docker搭建zookeeper ~ Wangdx&#39;s Blog</title>
+  <title>docker配合gitbook部署文档 ~ Wangdx&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -55,35 +55,35 @@
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link" href="/">Home</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
+            <a class="nav-link" href="/archives/">Archives</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/categories/">Categories</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
+            <a class="nav-link" href="/tags/">Tags</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
+            <a class="nav-link" href="/about/">About</a>
           </li>
         
         
@@ -113,7 +113,7 @@
               
                 <p class="mt-3">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  Saturday, September 14th 2019, 7:44 pm
+                  Wednesday, December 11th 2019, 10:46 pm
                 </p>
               
 
@@ -122,7 +122,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    911 字
+                    169 字
                   </span>&nbsp;
                 
 
@@ -130,7 +130,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      4 分钟
+                      1 分钟
                   </span>&nbsp;
                 
 
@@ -163,139 +163,44 @@
       <div class="py-5 z-depth-3" id="board">
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
-            <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://zookeeper.apache.org/doc/current/zookeeperStarted.html" target="_blank" rel="noopener">ZooKeeper Getting Started Guide</a><br><a href="https://blog.csdn.net/zhufuyi/article/details/72782350?locationNum=6&amp;fps=1" target="_blank" rel="noopener">Mesos+Zookeeper+Marathon的Docker管理平台部署记录</a><br><a href="http://blog.sina.com.cn/s/blog_8ea8e9d50102wx24.html" target="_blank" rel="noopener">docker部署zookeeper集群</a><br><a href="https://www.jianshu.com/p/14d30aa63dc9" target="_blank" rel="noopener">Docker环境搭建ZooKeeper集群</a></p>
-<h2 id="环境组网"><a href="#环境组网" class="headerlink" title="环境组网"></a>环境组网</h2><h3 id="组网策略"><a href="#组网策略" class="headerlink" title="组网策略"></a>组网策略</h3><p>准备三台server搭建zookeeper最小化集群，以达成主备份关系，为后期mesos集群的管理和调度做准备</p>
-<h3 id="节点主机配置"><a href="#节点主机配置" class="headerlink" title="节点主机配置"></a>节点主机配置</h3><p>储备三台服务器如下：<br>主机系统 | ip地址<br>—|—<br>ubuntu16.04 server | 192.168.24.173<br>ubuntu16.04 server | 192.168.24.179<br>ubuntu16.04 server | 192.168.24.178</p>
-<h2 id="集群配置"><a href="#集群配置" class="headerlink" title="集群配置"></a>集群配置</h2><h3 id="软件配置"><a href="#软件配置" class="headerlink" title="软件配置"></a>软件配置</h3><h4 id="软件版本"><a href="#软件版本" class="headerlink" title="软件版本"></a>软件版本</h4><p>我们选择docker启动容器的方法来部署zookeeper，考虑到后期部署spark on mesos时版本的兼容性，这里选择zookeeper-3.4.13 。如下为集群的软件版本规划：<br>软件 | 版本<br>— | —<br>zookeeper | 3.4.13<br>mesos | 1.6.1<br>spark | 2.2.2</p>
-<h4 id="zookeeper的docker容器选择"><a href="#zookeeper的docker容器选择" class="headerlink" title="zookeeper的docker容器选择"></a>zookeeper的docker容器选择</h4><p>在参阅 <a href="https://hub.docker.com/search/?isAutomated=0&amp;isOfficial=0&amp;page=1&amp;pullCount=0&amp;q=zookeeper&amp;starCount=0" target="_blank" rel="noopener">docker hub</a> 中的众多的zookeeper容器后，选择使用人群较多，dockerfile中版本配置比较新的 <a href="https://hub.docker.com/r/jplock/zookeeper/" target="_blank" rel="noopener">jplock/zookeeper:3.4.13</a> 作为本次集群搭建的zookeeper容器版本。  </p>
-<h5 id="容器中的软件及版本"><a href="#容器中的软件及版本" class="headerlink" title="容器中的软件及版本"></a>容器中的软件及版本</h5><table>
-<thead>
-<tr>
-<th>软件名</th>
-<th>来源</th>
-<th>版本</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>jdk</td>
-<td>openjdk:8-jre-alpine</td>
-<td>jdk8</td>
-</tr>
-<tr>
-<td>zookeeper</td>
-<td><a href="http://apache.mirrors.pair.com" target="_blank" rel="noopener">http://apache.mirrors.pair.com</a></td>
-<td>3.4.13</td>
-</tr>
-</tbody>
-</table>
-<h5 id="dockerFile"><a href="#dockerFile" class="headerlink" title="dockerFile"></a>dockerFile</h5><pre><code>FROM openjdk:8-jre-alpine
+            <h4 id="安装gitbook"><a href="#安装gitbook" class="headerlink" title="安装gitbook"></a>安装gitbook</h4><pre><code>cnpm install -g gitbook-cli
+</code></pre><h4 id="构建目录结构"><a href="#构建目录结构" class="headerlink" title="构建目录结构"></a>构建目录结构</h4><pre><code>nginx-docker
+    --default.conf
+    --docker-compose.yml
+    --web
+        ---note
+</code></pre><h4 id="拉取文档仓库并编译"><a href="#拉取文档仓库并编译" class="headerlink" title="拉取文档仓库并编译"></a>拉取文档仓库并编译</h4><pre><code>git pull &amp;&amp; rm -rf _book &amp;&amp; gitbook install &amp;&amp; gitbook build .
+</code></pre><h4 id="编写nginx服务配置"><a href="#编写nginx服务配置" class="headerlink" title="编写nginx服务配置"></a>编写nginx服务配置</h4><pre><code>➜  nginx-docker cat default.conf 
+server {
+  listen 80;
+  server_name xxx.xxx.xx.xxx;
+  root /web;
 
-ARG MIRROR=http://apache.mirrors.pair.com
-ARG VERSION=3.4.13
+  location /note {
+    alias /web/note/_book;
+    index index.html;
+  }
 
-LABEL name=&quot;zookeeper&quot; version=$VERSION
+  location  ^~ gitbook/ {
+    root /web/gitbook/;
+   }
+}
+</code></pre><h4 id="通过docker启动"><a href="#通过docker启动" class="headerlink" title="通过docker启动"></a>通过docker启动</h4><p>编写<code>docker-compse.yml</code></p>
+<pre><code>➜  nginx-docker cat docker-compose.yml 
+version: &#39;2&#39;
 
-RUN apk add --no-cache wget bash \
-    &amp;&amp; mkdir -p /opt/zookeeper \
-    &amp;&amp; wget -q -O - $MIRROR/zookeeper/zookeeper-$VERSION/zookeeper-$VERSION.tar.gz \
-      | tar -xzC /opt/zookeeper --strip-components=1 \
-    &amp;&amp; cp /opt/zookeeper/conf/zoo_sample.cfg /opt/zookeeper/conf/zoo.cfg \
-    &amp;&amp; mkdir -p /tmp/zookeeper
-
-EXPOSE 2181 2888 3888
-
-WORKDIR /opt/zookeeper
-
-# Only checks if server is up and listening, not quorum. 
-# See https://zookeeper.apache.org/doc/r3.4.13/zookeeperAdmin.html#sc_zkCommands
-HEALTHCHECK CMD [ $(echo ruok | nc 127.0.0.1:2181) == &quot;imok&quot; ] || exit 1
-
-VOLUME [&quot;/opt/zookeeper/conf&quot;, &quot;/tmp/zookeeper&quot;]
-
-ENTRYPOINT [&quot;/opt/zookeeper/bin/zkServer.sh&quot;]
-CMD [&quot;start-foreground&quot;]
-</code></pre><h3 id="单个节点的配置"><a href="#单个节点的配置" class="headerlink" title="单个节点的配置"></a>单个节点的配置</h3><h4 id="zoo-cfg配置"><a href="#zoo-cfg配置" class="headerlink" title="zoo.cfg配置"></a>zoo.cfg配置</h4><pre><code>$ vi /conf/zoo.cfg
-
-tickTime=2000
-initLimit=5
-syncLimit=2
-#maxClientCnxns=60
-#autopurge.snapRetainCount=3
-#autopurge.purgeInterval=1
-
-dataDir=/opt/zookeeper/data
-
-clientPort=2181
-server.1=192.168.24.173:2888:3888
-server.2=192.168.24.178:2888:3888
-server.3=192.168.24.179:2888:3888
-</code></pre><h4 id="myid配置"><a href="#myid配置" class="headerlink" title="myid配置"></a>myid配置</h4><p>在集群每个节点的zookeeper中修改或创建./data/myid文件，并在其中写入1~255之间的值，该值即为节点编号。</p>
-<pre><code>$ mkdir data
-$ vi /data/myid
-1
-</code></pre><h3 id="拷贝容器配置到主机"><a href="#拷贝容器配置到主机" class="headerlink" title="拷贝容器配置到主机"></a>拷贝容器配置到主机</h3><pre><code>$ sudo docker container cp zk178:/opt/zookeeper/conf /opt/zookeeper
-
-$ sudo docker container cp zk178:/opt/zookeeper/data /opt/zookeeper
-</code></pre><h2 id="启动集群"><a href="#启动集群" class="headerlink" title="启动集群"></a>启动集群</h2><h3 id="启动参数策略"><a href="#启动参数策略" class="headerlink" title="启动参数策略"></a>启动参数策略</h3><h3 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h3><pre><code>docker run -tid --restart=always \
-    --net=host \
-    -v /opt/zookeeper/data:/opt/zookeeper/data \
-    -v /opt/zookeeper/logs:/opt/zookeeper/logs \
-    -v /opt/zookeeper/conf:/opt/zookeeper/conf \
-    --name=zk173 \
-    jplock/zookeeper:3.4.13
-</code></pre><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h4 id="测试命令："><a href="#测试命令：" class="headerlink" title="测试命令："></a>测试命令：</h4><p>通过如下命令测试集群是否联网正常。</p>
-<pre><code>echo stat | nc 127.0.0.1 2181
-</code></pre><h4 id="测试结果："><a href="#测试结果：" class="headerlink" title="测试结果："></a>测试结果：</h4><pre><code>➜  ~ echo stat | nc 127.0.0.1 2181
-Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, built on 06/29/2018 04:05 GMT
-Clients:
- /127.0.0.1:39122[0](queued=0,recved=1,sent=0)
-
-Latency min/avg/max: 0/0/0
-Received: 3
-Sent: 2
-Connections: 1
-Outstanding: 0
-Zxid: 0x10000000c
-Mode: follower
-Node count: 8
-➜  ~ 
-</code></pre><pre><code>topiot@iots2:~$ echo stat | nc 127.0.0.1 2181
-Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, built on 06/29/2018 04:05 GMT
-Clients:
- /127.0.0.1:55782[1](queued=0,recved=1370,sent=1371)
- /127.0.0.1:55790[0](queued=0,recved=1,sent=0)
- /127.0.0.1:55780[1](queued=0,recved=1372,sent=1374)
- /127.0.0.1:55784[1](queued=0,recved=1371,sent=1373)
- /127.0.0.1:55778[1](queued=0,recved=1372,sent=1374)
-
-Latency min/avg/max: 0/0/81
-Received: 5639
-Sent: 5645
-Connections: 5
-Outstanding: 0
-Zxid: 0x10000000c
-Mode: leader
-Node count: 8
-Proposal sizes last/min/max: 36/36/338
-topiot@iots2:~$ 
-</code></pre><pre><code>topiot@iots3:~$ echo stat | nc 127.0.0.1 2181
-Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, built on 06/29/2018 04:05 GMT
-Clients:
- /127.0.0.1:39678[1](queued=0,recved=1390,sent=1390)
- /127.0.0.1:39680[1](queued=0,recved=1390,sent=1390)
- /127.0.0.1:39682[1](queued=0,recved=1390,sent=1390)
- /127.0.0.1:41312[0](queued=0,recved=1,sent=0)
-
-Latency min/avg/max: 0/0/74
-Received: 4326
-Sent: 4325
-Connections: 4
-Outstanding: 0
-Zxid: 0x10000000c
-Mode: follower
-Node count: 8
-topiot@iots3:~$ 
+services:
+  nginx:
+    image: nginx:latest
+    restart: always
+    container_name: nginx-web
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./web:/web
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+</code></pre><h4 id="问题处理"><a href="#问题处理" class="headerlink" title="问题处理"></a>问题处理</h4><p>当执行<code>gitbook install</code>非常慢的时候，执行如下命令，变更npm安装源。</p>
+<pre><code>sudo npm config set registry=http://registry.npm.taobao.org
 </code></pre>
             <hr>
           </div>
@@ -315,7 +220,7 @@ topiot@iots3:~$
     <div class="d-none d-lg-block col-lg-2 toc-container">
       
   <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
     <div id="tocbot"></div>
   </div>
 
@@ -353,7 +258,7 @@ topiot@iots3:~$
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -362,7 +267,7 @@ topiot@iots3:~$
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+                 for="local-search-input">keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -457,7 +362,7 @@ topiot@iots3:~$
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "通过docker搭建zookeeper&nbsp;",
+        "docker配合gitbook部署文档&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

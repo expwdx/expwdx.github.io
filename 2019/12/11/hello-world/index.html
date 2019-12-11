@@ -14,7 +14,7 @@
   <meta name="description" content>
   <meta name="author" content="Wangdx">
   <meta name="keywords" content>
-  <title>Ubuntu16.04&amp;14.04下的docker安装 ~ Wangdx&#39;s Blog</title>
+  <title>Hello World ~ Wangdx&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -55,35 +55,35 @@
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link" href="/">Home</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
+            <a class="nav-link" href="/archives/">Archives</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/categories/">Categories</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
+            <a class="nav-link" href="/tags/">Tags</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
+            <a class="nav-link" href="/about/">About</a>
           </li>
         
         
@@ -113,7 +113,7 @@
               
                 <p class="mt-3">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  Saturday, September 14th 2019, 7:44 pm
+                  Wednesday, December 11th 2019, 10:46 pm
                 </p>
               
 
@@ -122,7 +122,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    438 字
+                    75 字
                   </span>&nbsp;
                 
 
@@ -163,36 +163,19 @@
       <div class="py-5 z-depth-3" id="board">
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
-            <h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h4 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h4><pre><code>$ sudo apt-get remove docker docker-engine docker.io
-</code></pre><h4 id="安装linux的额外镜像包（仅ubuntu14-04需要）"><a href="#安装linux的额外镜像包（仅ubuntu14-04需要）" class="headerlink" title="安装linux的额外镜像包（仅ubuntu14.04需要）"></a>安装linux的额外镜像包（仅ubuntu14.04需要）</h4><p>执行如下操作，允许你使用aufs存储驱动。ubuntu16.04使用默认的overlay2存储驱动。</p>
-<pre><code>$ sudo apt-get update
-
-$ sudo apt-get install \
-    linux-image-extra-$(uname -r) \
-    linux-image-extra-virtual
-</code></pre><h4 id="设置安装源"><a href="#设置安装源" class="headerlink" title="设置安装源"></a>设置安装源</h4><p>通过如下步骤，设置安装源仓库，这里我们使用阿里源</p>
-<pre><code>$ sudo apt-get update
-
-$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
-
-$ curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -  
-
-$ sudo add-apt-repository &quot;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;
-</code></pre><h4 id="安装docker社区版"><a href="#安装docker社区版" class="headerlink" title="安装docker社区版"></a>安装docker社区版</h4><p>通过如下命令将安装docker最新版本</p>
-<pre><code>$ sudo apt-get update
-
-$ sudo apt-get install docker-ce
-</code></pre><h4 id="检验是否安装成功"><a href="#检验是否安装成功" class="headerlink" title="检验是否安装成功"></a>检验是否安装成功</h4><p>通过运行hello-world实例便可检验是否安装成功</p>
-<pre><code>$ sudo docker run hello-world
-</code></pre><h4 id="创建一个docker用户组-可选"><a href="#创建一个docker用户组-可选" class="headerlink" title="创建一个docker用户组(可选)"></a>创建一个docker用户组(可选)</h4><p>docker后台进程是绑定的Unix的socket而不是TCP端口。默认情况下，Unix的socket属于用户root，其它用户要使用要通过sudo命令。由于这个原因，docker daemon通常使用root用户运行。</p>
-<p>　　为了避免使用sudo当你使用docker命令的时候，创建一个Unix组名为docker并且添加用户。当docker daemon启动，它会分配Unix socket读写权限给所属的docker组。</p>
-<pre><code>$ sudo groupadd docker
-
-$ sudo usermod -aG docker $USER
-</code></pre><p>校验生效。通过运行docker命令不带sudo：docker run hello-world，如果失败会有以下类似的信息：Cannot connect to the Docker daemon. Is ‘docker daemon’ running on this host?确保DOCKER_HOST环境变量没有设置。如果有取消它。</p>
-<h2 id="卸载方法"><a href="#卸载方法" class="headerlink" title="卸载方法"></a>卸载方法</h2><h4 id="卸载docker社区版"><a href="#卸载docker社区版" class="headerlink" title="卸载docker社区版:"></a>卸载docker社区版:</h4><pre><code>$ sudo apt-get purge docker-ce 
-</code></pre><h4 id="删除镜像、容器、卷"><a href="#删除镜像、容器、卷" class="headerlink" title="删除镜像、容器、卷"></a>删除镜像、容器、卷</h4><pre><code>$ sudo rm -rf /var/lib/docker
-</code></pre><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">Install Docker in ubuntu</a><br><a href="https://www.cnblogs.com/lighten/p/6034984.html" target="_blank" rel="noopener">ubuntu16.04安装docker</a>  </p>
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
             <hr>
           </div>
@@ -212,7 +195,7 @@ $ sudo usermod -aG docker $USER
     <div class="d-none d-lg-block col-lg-2 toc-container">
       
   <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;TOC</p>
     <div id="tocbot"></div>
   </div>
 
@@ -250,7 +233,7 @@ $ sudo usermod -aG docker $USER
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -259,7 +242,7 @@ $ sudo usermod -aG docker $USER
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+                 for="local-search-input">keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -354,7 +337,7 @@ $ sudo usermod -aG docker $USER
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Ubuntu16.04&14.04下的docker安装&nbsp;",
+        "Hello World&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

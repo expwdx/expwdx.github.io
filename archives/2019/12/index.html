@@ -14,7 +14,7 @@
   <meta name="description" content>
   <meta name="author" content="Wangdx">
   <meta name="keywords" content>
-  <title>docker配合gitbook部署文档 ~ Wangdx&#39;s Blog</title>
+  <title>Archives ~ Wangdx&#39;s Blog</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
@@ -35,7 +35,7 @@
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 80vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -55,35 +55,35 @@
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link" href="/">Home</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/archives/">归档</a>
+            <a class="nav-link" href="/archives/">Archives</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/categories/">Categories</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/tags/">标签</a>
+            <a class="nav-link" href="/tags/">Tags</a>
           </li>
         
           
           
           
           <li class="nav-item">
-            <a class="nav-link" href="/about/">关于</a>
+            <a class="nav-link" href="/about/">About</a>
           </li>
         
         
@@ -98,7 +98,7 @@
 </nav>
 
     <div class="view intro-2" id="background"
-         style="background: url('/img/post.jpg')no-repeat center center;
+         style="background: url('/img/archive.jpg')no-repeat center center;
            background-size: cover;
            background-attachment: fixed;">
       <div class="full-bg-img">
@@ -108,41 +108,6 @@
               
             </span>
 
-            
-              <br>
-              
-                <p class="mt-3">
-                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  Saturday, September 14th 2019, 7:44 pm
-                </p>
-              
-
-              <p>
-                
-                  
-                  &nbsp;<i class="far fa-chart-bar"></i>
-                  <span class="post-count">
-                    169 字
-                  </span>&nbsp;
-                
-
-                
-                  
-                  &nbsp;<i class="far fa-clock"></i>
-                  <span class="post-count">
-                      1 分钟
-                  </span>&nbsp;
-                
-
-                
-                  <!-- 不蒜子统计文章PV -->
-                  
-                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
-                  <span id="busuanzi_container_page_pv">
-                    <span id="busuanzi_value_page_pv"></span> 次
-                  </span>&nbsp;
-                
-              </p>
             
           </div>
 
@@ -154,95 +119,65 @@
 
   <main>
     
+      <div class="container nopadding-md">
+        <div class="py-5 z-depth-3" id="board">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<div class="list-group">
+  <p class="h4">6 posts in total.</p>
+  <hr>
+  
+    
       
+      <p class="h5">2019</p>
+    
+    <a href="/2019/12/11/Docker安装方法/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">Ubuntu16.04&amp;14.04下的docker安装</span>
+      <span style="float: right;">12-11</span>
+    </a>
+  
+    
+    <a href="/2019/12/11/hello-world/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">Hello World</span>
+      <span style="float: right;">12-11</span>
+    </a>
+  
+    
+    <a href="/2019/12/11/基于docker的 spark on mesos 部署/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">基于docker的Spark on Mesos部署</span>
+      <span style="float: right;">12-11</span>
+    </a>
+  
+    
+    <a href="/2019/12/11/gitbook文档部署/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">docker配合gitbook部署文档</span>
+      <span style="float: right;">12-11</span>
+    </a>
+  
+    
+    <a href="/2019/12/11/通过docker搭建zookeeper集群/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">通过docker搭建zookeeper</span>
+      <span style="float: right;">12-11</span>
+    </a>
+  
+    
+    <a href="/2019/12/11/Docker Compose安装/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">Docker Compose安装</span>
+      <span style="float: right;">12-11</span>
+    </a>
+  
+</div>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="py-5 z-depth-3" id="board">
-        <div class="post-content mx-auto" id="post">
-          <div class="markdown-body">
-            <h4 id="安装gitbook"><a href="#安装gitbook" class="headerlink" title="安装gitbook"></a>安装gitbook</h4><pre><code>cnpm install -g gitbook-cli
-</code></pre><h4 id="构建目录结构"><a href="#构建目录结构" class="headerlink" title="构建目录结构"></a>构建目录结构</h4><pre><code>nginx-docker
-    --default.conf
-    --docker-compose.yml
-    --web
-        ---note
-</code></pre><h4 id="拉取文档仓库并编译"><a href="#拉取文档仓库并编译" class="headerlink" title="拉取文档仓库并编译"></a>拉取文档仓库并编译</h4><pre><code>git pull &amp;&amp; rm -rf _book &amp;&amp; gitbook install &amp;&amp; gitbook build .
-</code></pre><h4 id="编写nginx服务配置"><a href="#编写nginx服务配置" class="headerlink" title="编写nginx服务配置"></a>编写nginx服务配置</h4><pre><code>➜  nginx-docker cat default.conf 
-server {
-  listen 80;
-  server_name xxx.xxx.xx.xxx;
-  root /web;
 
-  location /note {
-    alias /web/note/_book;
-    index index.html;
-  }
-
-  location  ^~ gitbook/ {
-    root /web/gitbook/;
-   }
-}
-</code></pre><h4 id="通过docker启动"><a href="#通过docker启动" class="headerlink" title="通过docker启动"></a>通过docker启动</h4><p>编写<code>docker-compse.yml</code></p>
-<pre><code>➜  nginx-docker cat docker-compose.yml 
-version: &#39;2&#39;
-
-services:
-  nginx:
-    image: nginx:latest
-    restart: always
-    container_name: nginx-web
-    network_mode: host
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./web:/web
-      - ./default.conf:/etc/nginx/conf.d/default.conf
-</code></pre><h4 id="问题处理"><a href="#问题处理" class="headerlink" title="问题处理"></a>问题处理</h4><p>当执行<code>gitbook install</code>非常慢的时候，执行如下命令，变更npm安装源。</p>
-<pre><code>sudo npm config set registry=http://registry.npm.taobao.org
-</code></pre>
-            <hr>
-          </div>
-          <br>
-          <div>
-            <p>
-            
-            
-            </p>
-            
-              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
-            
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="d-none d-lg-block col-lg-2 toc-container">
-      
-  <div id="toc">
-    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
-    <div id="tocbot"></div>
-  </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- custom -->
-
-
-<!-- Comments -->
-<div class="col-lg-7 mx-auto nopadding-md">
-  <div class="container comments mx-auto" id="comments">
-    
-      <br><br>
-      
-      
-
-    
-  </div>
-</div>
-
     
   </main>
 
@@ -258,7 +193,7 @@ services:
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -267,7 +202,7 @@ services:
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+                 for="local-search-input">keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -317,11 +252,6 @@ services:
 
 
 
-  
-    <script src="/lib/tocbot/tocbot.min.js" ></script>
-  
-  <script src="/js/post.js" ></script>
-
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -362,7 +292,7 @@ services:
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "docker配合gitbook部署文档&nbsp;",
+        "Archive&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
