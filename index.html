@@ -144,19 +144,19 @@
         
         <div class="index-excerpt" >
           <div class="index-text mb-1">安装 Docker Compose官方安装方法
-运行如下命令下载最新版本
-1$ sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+运行如下命令下载最新版本$ sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 
-添加执行权限
-1$ sudo chmod +x /usr/local/bin/docker-compose
+添加执行权限$ sudo chmod +x /usr/local/bin/docker-compose
 
 安装 completion 以便能在bash和zsh的shell中运行completion命令（可选）
 
 测试安装是否成功
-12$ docker-compose --versiondocker-compose version 1.22.0, build 1719ceb
+$ docker-compose --version
+docker-compose version 1.22.0, build 1719ceb
 
 
-加速通道安装Docker Compose 存放在Git Hub，不太稳定。你可以也通过执行下面的命令，高速安装Docker Compose。123$ sudo curl -L https://get.daocloud.io/docker/comp</div>
+加速通道安装Docker Compose 存放在Git Hub，不太稳定。你可以也通过执行下面的命令，高速安装Docker Compose。
+$ sudo curl -L https://get.daocloud.io/docker/compose/rel</div>
         </div>
       </a>
 
@@ -181,11 +181,21 @@
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1">安装步骤卸载旧版本1$ sudo apt-get remove docker docker-engine docker.io
+          <div class="index-text mb-1">安装步骤卸载旧版本$ sudo apt-get remove docker docker-engine docker.io
 安装linux的额外镜像包（仅ubuntu14.04需要）执行如下操作，允许你使用aufs存储驱动。ubuntu16.04使用默认的overlay2存储驱动。
-12345$ sudo apt-get update$ sudo apt-get install \    linux-image-extra-$(uname -r) \    linux-image-extra-virtual
+$ sudo apt-get update
+
+$ sudo apt-get install \
+    linux-image-extra-$(uname -r) \
+    linux-image-extra-virtual
 设置安装源通过如下步骤，设置安装源仓库，这里我们使用阿里源
-1234567$ sudo apt-get update$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common    $ curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -  $ </div>
+$ sudo apt-get update
+
+$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+
+$ curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -  
+
+$ sudo ad</div>
         </div>
       </a>
 
@@ -210,10 +220,30 @@
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1">安装gitbook1cnpm install -g gitbook-cli
-构建目录结构12345nginx-docker    --default.conf    --docker-compose.yml    --web        ---note
-拉取文档仓库并编译1git pull &amp;&amp; rm -rf _book &amp;&amp; gitbook install &amp;&amp; gitbook build .
-编写nginx服务配置123456789101112131415➜  nginx-docker cat default.conf server &#123;  listen 80;  server_name xxx.xxx.xx.xxx;  root /web;  location /note &#123;    alias /web/note/_book;    index index.html;  &#125;  location  ^~ gitbook/ &#123;    root /web/gitbook/;   &#125;&#12</div>
+          <div class="index-text mb-1">安装gitbookcnpm install -g gitbook-cli
+构建目录结构nginx-docker
+    --default.conf
+    --docker-compose.yml
+    --web
+        ---note
+拉取文档仓库并编译git pull &amp;&amp; rm -rf _book &amp;&amp; gitbook install &amp;&amp; gitbook build .
+编写nginx服务配置➜  nginx-docker cat default.conf 
+server {
+  listen 80;
+  server_name xxx.xxx.xx.xxx;
+  root /web;
+
+  location /note {
+    alias /web/note/_book;
+    index index.html;
+  }
+
+  location  ^~ gitbook/ {
+    root /web/gitbook/;
+   }
+}
+通过docker启动编写docker-compse.yml
+➜  ngin</div>
         </div>
       </a>
 
@@ -239,13 +269,17 @@
         
         <div class="index-excerpt" >
           <div class="index-text mb-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post"
+Quick StartCreate a new post$ hexo new &quot;My New Post&quot;
+
 More info: Writing
-Run server1$ hexo server
+Run server$ hexo server
+
 More info: Server
-Generate static files1$ hexo generate
+Generate static files$ hexo generate
+
 More info: Generating
-Deploy to remote sites1$ hexo deploy
+Deploy to remote sites$ hexo deploy
+
 More info: Deployment
 </div>
         </div>
@@ -296,8 +330,10 @@ spark
 
 
 Mesos部署拉取docker镜像镜像源master: mesosphere/mesos-masterslave: mesosphere/mesos-slave
-拉镜像12$ docker pull mesosphere/mesos-master:1.6.1-rc2$ docker pull mesosphere/mesos-master:1.6.1-rc2
-启动容器设置host分别登陆三台服务器设置主机ip到环境变量，或者在启动mesos的参数中设置，本次我们选择在启动参数中设置。1$ HOST_IP=</div>
+拉镜像$ docker pull mesosphere/mesos-master:1.6.1-rc2
+$ docker pull mesosphere/mesos-master:1.6.1-rc2
+启动容器设置host分别登陆三台服务器设置主机ip到环境变量，或者在启动mesos的参数中设置，本次我们选择在启动参数中设置。
+$ HOST_IP=1</div>
         </div>
       </a>
 

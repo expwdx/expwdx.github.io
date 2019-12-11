@@ -122,7 +122,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    867 字
+                    911 字
                   </span>&nbsp;
                 
 
@@ -189,17 +189,114 @@
 </tr>
 </tbody>
 </table>
-<h5 id="dockerFile"><a href="#dockerFile" class="headerlink" title="dockerFile"></a>dockerFile</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">FROM openjdk:8-jre-alpine</span><br><span class="line"></span><br><span class="line">ARG MIRROR=http://apache.mirrors.pair.com</span><br><span class="line">ARG VERSION=3.4.13</span><br><span class="line"></span><br><span class="line">LABEL name=&quot;zookeeper&quot; version=$VERSION</span><br><span class="line"></span><br><span class="line">RUN apk add --no-cache wget bash \</span><br><span class="line">    &amp;&amp; mkdir -p /opt/zookeeper \</span><br><span class="line">    &amp;&amp; wget -q -O - $MIRROR/zookeeper/zookeeper-$VERSION/zookeeper-$VERSION.tar.gz \</span><br><span class="line">      | tar -xzC /opt/zookeeper --strip-components=1 \</span><br><span class="line">    &amp;&amp; cp /opt/zookeeper/conf/zoo_sample.cfg /opt/zookeeper/conf/zoo.cfg \</span><br><span class="line">    &amp;&amp; mkdir -p /tmp/zookeeper</span><br><span class="line"></span><br><span class="line">EXPOSE 2181 2888 3888</span><br><span class="line"></span><br><span class="line">WORKDIR /opt/zookeeper</span><br><span class="line"></span><br><span class="line"># Only checks if server is up and listening, not quorum. </span><br><span class="line"># See https://zookeeper.apache.org/doc/r3.4.13/zookeeperAdmin.html#sc_zkCommands</span><br><span class="line">HEALTHCHECK CMD [ $(echo ruok | nc 127.0.0.1:2181) == &quot;imok&quot; ] || exit 1</span><br><span class="line"></span><br><span class="line">VOLUME [&quot;/opt/zookeeper/conf&quot;, &quot;/tmp/zookeeper&quot;]</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [&quot;/opt/zookeeper/bin/zkServer.sh&quot;]</span><br><span class="line">CMD [&quot;start-foreground&quot;]</span><br></pre></td></tr></table></figure>
-<h3 id="单个节点的配置"><a href="#单个节点的配置" class="headerlink" title="单个节点的配置"></a>单个节点的配置</h3><h4 id="zoo-cfg配置"><a href="#zoo-cfg配置" class="headerlink" title="zoo.cfg配置"></a>zoo.cfg配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ vi /conf/zoo.cfg</span><br><span class="line"></span><br><span class="line">tickTime=2000</span><br><span class="line">initLimit=5</span><br><span class="line">syncLimit=2</span><br><span class="line">#maxClientCnxns=60</span><br><span class="line">#autopurge.snapRetainCount=3</span><br><span class="line">#autopurge.purgeInterval=1</span><br><span class="line"></span><br><span class="line">dataDir=/opt/zookeeper/data</span><br><span class="line"></span><br><span class="line">clientPort=2181</span><br><span class="line">server.1=192.168.24.173:2888:3888</span><br><span class="line">server.2=192.168.24.178:2888:3888</span><br><span class="line">server.3=192.168.24.179:2888:3888</span><br></pre></td></tr></table></figure>
-<h4 id="myid配置"><a href="#myid配置" class="headerlink" title="myid配置"></a>myid配置</h4><p>在集群每个节点的zookeeper中修改或创建./data/myid文件，并在其中写入1~255之间的值，该值即为节点编号。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir data</span><br><span class="line">$ vi /data/myid</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
-<h3 id="拷贝容器配置到主机"><a href="#拷贝容器配置到主机" class="headerlink" title="拷贝容器配置到主机"></a>拷贝容器配置到主机</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker container cp zk178:/opt/zookeeper/conf /opt/zookeeper</span><br><span class="line"></span><br><span class="line">$ sudo docker container cp zk178:/opt/zookeeper/data /opt/zookeeper</span><br></pre></td></tr></table></figure>
-<h2 id="启动集群"><a href="#启动集群" class="headerlink" title="启动集群"></a>启动集群</h2><h3 id="启动参数策略"><a href="#启动参数策略" class="headerlink" title="启动参数策略"></a>启动参数策略</h3><h3 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -tid --restart=always \</span><br><span class="line">    --net=host \</span><br><span class="line">    -v /opt/zookeeper/data:/opt/zookeeper/data \</span><br><span class="line">    -v /opt/zookeeper/logs:/opt/zookeeper/logs \</span><br><span class="line">    -v /opt/zookeeper/conf:/opt/zookeeper/conf \</span><br><span class="line">    --name=zk173 \</span><br><span class="line">    jplock/zookeeper:3.4.13</span><br></pre></td></tr></table></figure>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h4 id="测试命令："><a href="#测试命令：" class="headerlink" title="测试命令："></a>测试命令：</h4><p>通过如下命令测试集群是否联网正常。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo stat | nc 127.0.0.1 2181</span><br></pre></td></tr></table></figure></p>
-<h4 id="测试结果："><a href="#测试结果：" class="headerlink" title="测试结果："></a>测试结果：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ echo stat | nc 127.0.0.1 2181</span><br><span class="line">Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, built on 06/29/2018 04:05 GMT</span><br><span class="line">Clients:</span><br><span class="line"> /127.0.0.1:39122[0](queued=0,recved=1,sent=0)</span><br><span class="line"></span><br><span class="line">Latency min/avg/max: 0/0/0</span><br><span class="line">Received: 3</span><br><span class="line">Sent: 2</span><br><span class="line">Connections: 1</span><br><span class="line">Outstanding: 0</span><br><span class="line">Zxid: 0x10000000c</span><br><span class="line">Mode: follower</span><br><span class="line">Node count: 8</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">topiot@iots2:~$ echo stat | nc 127.0.0.1 2181</span><br><span class="line">Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, built on 06/29/2018 04:05 GMT</span><br><span class="line">Clients:</span><br><span class="line"> /127.0.0.1:55782[1](queued=0,recved=1370,sent=1371)</span><br><span class="line"> /127.0.0.1:55790[0](queued=0,recved=1,sent=0)</span><br><span class="line"> /127.0.0.1:55780[1](queued=0,recved=1372,sent=1374)</span><br><span class="line"> /127.0.0.1:55784[1](queued=0,recved=1371,sent=1373)</span><br><span class="line"> /127.0.0.1:55778[1](queued=0,recved=1372,sent=1374)</span><br><span class="line"></span><br><span class="line">Latency min/avg/max: 0/0/81</span><br><span class="line">Received: 5639</span><br><span class="line">Sent: 5645</span><br><span class="line">Connections: 5</span><br><span class="line">Outstanding: 0</span><br><span class="line">Zxid: 0x10000000c</span><br><span class="line">Mode: leader</span><br><span class="line">Node count: 8</span><br><span class="line">Proposal sizes last/min/max: 36/36/338</span><br><span class="line">topiot@iots2:~$</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">topiot@iots3:~$ echo stat | nc 127.0.0.1 2181</span><br><span class="line">Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, built on 06/29/2018 04:05 GMT</span><br><span class="line">Clients:</span><br><span class="line"> /127.0.0.1:39678[1](queued=0,recved=1390,sent=1390)</span><br><span class="line"> /127.0.0.1:39680[1](queued=0,recved=1390,sent=1390)</span><br><span class="line"> /127.0.0.1:39682[1](queued=0,recved=1390,sent=1390)</span><br><span class="line"> /127.0.0.1:41312[0](queued=0,recved=1,sent=0)</span><br><span class="line"></span><br><span class="line">Latency min/avg/max: 0/0/74</span><br><span class="line">Received: 4326</span><br><span class="line">Sent: 4325</span><br><span class="line">Connections: 4</span><br><span class="line">Outstanding: 0</span><br><span class="line">Zxid: 0x10000000c</span><br><span class="line">Mode: follower</span><br><span class="line">Node count: 8</span><br><span class="line">topiot@iots3:~$</span><br></pre></td></tr></table></figure>
+<h5 id="dockerFile"><a href="#dockerFile" class="headerlink" title="dockerFile"></a>dockerFile</h5><pre><code>FROM openjdk:8-jre-alpine
 
+ARG MIRROR=http://apache.mirrors.pair.com
+ARG VERSION=3.4.13
+
+LABEL name=&quot;zookeeper&quot; version=$VERSION
+
+RUN apk add --no-cache wget bash \
+    &amp;&amp; mkdir -p /opt/zookeeper \
+    &amp;&amp; wget -q -O - $MIRROR/zookeeper/zookeeper-$VERSION/zookeeper-$VERSION.tar.gz \
+      | tar -xzC /opt/zookeeper --strip-components=1 \
+    &amp;&amp; cp /opt/zookeeper/conf/zoo_sample.cfg /opt/zookeeper/conf/zoo.cfg \
+    &amp;&amp; mkdir -p /tmp/zookeeper
+
+EXPOSE 2181 2888 3888
+
+WORKDIR /opt/zookeeper
+
+# Only checks if server is up and listening, not quorum. 
+# See https://zookeeper.apache.org/doc/r3.4.13/zookeeperAdmin.html#sc_zkCommands
+HEALTHCHECK CMD [ $(echo ruok | nc 127.0.0.1:2181) == &quot;imok&quot; ] || exit 1
+
+VOLUME [&quot;/opt/zookeeper/conf&quot;, &quot;/tmp/zookeeper&quot;]
+
+ENTRYPOINT [&quot;/opt/zookeeper/bin/zkServer.sh&quot;]
+CMD [&quot;start-foreground&quot;]
+</code></pre><h3 id="单个节点的配置"><a href="#单个节点的配置" class="headerlink" title="单个节点的配置"></a>单个节点的配置</h3><h4 id="zoo-cfg配置"><a href="#zoo-cfg配置" class="headerlink" title="zoo.cfg配置"></a>zoo.cfg配置</h4><pre><code>$ vi /conf/zoo.cfg
+
+tickTime=2000
+initLimit=5
+syncLimit=2
+#maxClientCnxns=60
+#autopurge.snapRetainCount=3
+#autopurge.purgeInterval=1
+
+dataDir=/opt/zookeeper/data
+
+clientPort=2181
+server.1=192.168.24.173:2888:3888
+server.2=192.168.24.178:2888:3888
+server.3=192.168.24.179:2888:3888
+</code></pre><h4 id="myid配置"><a href="#myid配置" class="headerlink" title="myid配置"></a>myid配置</h4><p>在集群每个节点的zookeeper中修改或创建./data/myid文件，并在其中写入1~255之间的值，该值即为节点编号。</p>
+<pre><code>$ mkdir data
+$ vi /data/myid
+1
+</code></pre><h3 id="拷贝容器配置到主机"><a href="#拷贝容器配置到主机" class="headerlink" title="拷贝容器配置到主机"></a>拷贝容器配置到主机</h3><pre><code>$ sudo docker container cp zk178:/opt/zookeeper/conf /opt/zookeeper
+
+$ sudo docker container cp zk178:/opt/zookeeper/data /opt/zookeeper
+</code></pre><h2 id="启动集群"><a href="#启动集群" class="headerlink" title="启动集群"></a>启动集群</h2><h3 id="启动参数策略"><a href="#启动参数策略" class="headerlink" title="启动参数策略"></a>启动参数策略</h3><h3 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h3><pre><code>docker run -tid --restart=always \
+    --net=host \
+    -v /opt/zookeeper/data:/opt/zookeeper/data \
+    -v /opt/zookeeper/logs:/opt/zookeeper/logs \
+    -v /opt/zookeeper/conf:/opt/zookeeper/conf \
+    --name=zk173 \
+    jplock/zookeeper:3.4.13
+</code></pre><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h4 id="测试命令："><a href="#测试命令：" class="headerlink" title="测试命令："></a>测试命令：</h4><p>通过如下命令测试集群是否联网正常。</p>
+<pre><code>echo stat | nc 127.0.0.1 2181
+</code></pre><h4 id="测试结果："><a href="#测试结果：" class="headerlink" title="测试结果："></a>测试结果：</h4><pre><code>➜  ~ echo stat | nc 127.0.0.1 2181
+Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, built on 06/29/2018 04:05 GMT
+Clients:
+ /127.0.0.1:39122[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/0
+Received: 3
+Sent: 2
+Connections: 1
+Outstanding: 0
+Zxid: 0x10000000c
+Mode: follower
+Node count: 8
+➜  ~ 
+</code></pre><pre><code>topiot@iots2:~$ echo stat | nc 127.0.0.1 2181
+Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, built on 06/29/2018 04:05 GMT
+Clients:
+ /127.0.0.1:55782[1](queued=0,recved=1370,sent=1371)
+ /127.0.0.1:55790[0](queued=0,recved=1,sent=0)
+ /127.0.0.1:55780[1](queued=0,recved=1372,sent=1374)
+ /127.0.0.1:55784[1](queued=0,recved=1371,sent=1373)
+ /127.0.0.1:55778[1](queued=0,recved=1372,sent=1374)
+
+Latency min/avg/max: 0/0/81
+Received: 5639
+Sent: 5645
+Connections: 5
+Outstanding: 0
+Zxid: 0x10000000c
+Mode: leader
+Node count: 8
+Proposal sizes last/min/max: 36/36/338
+topiot@iots2:~$ 
+</code></pre><pre><code>topiot@iots3:~$ echo stat | nc 127.0.0.1 2181
+Zookeeper version: 3.4.13-2d71af4dbe22557fda74f9a9b4309b15a7487f03, built on 06/29/2018 04:05 GMT
+Clients:
+ /127.0.0.1:39678[1](queued=0,recved=1390,sent=1390)
+ /127.0.0.1:39680[1](queued=0,recved=1390,sent=1390)
+ /127.0.0.1:39682[1](queued=0,recved=1390,sent=1390)
+ /127.0.0.1:41312[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/74
+Received: 4326
+Sent: 4325
+Connections: 4
+Outstanding: 0
+Zxid: 0x10000000c
+Mode: follower
+Node count: 8
+topiot@iots3:~$ 
+</code></pre>
             <hr>
           </div>
           <br>

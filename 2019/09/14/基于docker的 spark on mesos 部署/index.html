@@ -187,21 +187,160 @@
 </tbody>
 </table>
 <h3 id="Mesos部署"><a href="#Mesos部署" class="headerlink" title="Mesos部署"></a>Mesos部署</h3><h4 id="拉取docker镜像"><a href="#拉取docker镜像" class="headerlink" title="拉取docker镜像"></a>拉取docker镜像</h4><h5 id="镜像源"><a href="#镜像源" class="headerlink" title="镜像源"></a>镜像源</h5><p>master: <a href="https://hub.docker.com/r/mesosphere/mesos-master/" target="_blank" rel="noopener">mesosphere/mesos-master</a><br>slave: <a href="https://hub.docker.com/r/mesosphere/mesos-slave/" target="_blank" rel="noopener">mesosphere/mesos-slave</a></p>
-<h5 id="拉镜像"><a href="#拉镜像" class="headerlink" title="拉镜像"></a>拉镜像</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull mesosphere/mesos-master:1.6.1-rc2</span><br><span class="line">$ docker pull mesosphere/mesos-master:1.6.1-rc2</span><br></pre></td></tr></table></figure>
-<h4 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h4><h5 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h5><p>分别登陆三台服务器设置主机ip到环境变量，或者在启动mesos的参数中设置，本次我们选择在启动参数中设置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ HOST_IP=192.168.24.17x</span><br></pre></td></tr></table></figure></p>
-<h5 id="master"><a href="#master" class="headerlink" title="master"></a>master</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --net=host --restart always --name m1 \</span><br><span class="line">  -e MESOS_PORT=5050 \</span><br><span class="line">  -e MESOS_HOSTNAME=192.168.24.173 \</span><br><span class="line">  -e MESOS_IP=192.168.24.173 \</span><br><span class="line">  -e MESOS_ZK=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \</span><br><span class="line">  -e MESOS_QUORUM=2 \</span><br><span class="line">  -e MESOS_REGISTRY=in_memory \</span><br><span class="line">  -e MESOS_LOG_DIR=/var/log/mesos \</span><br><span class="line">  -e MESOS_WORK_DIR=/var/tmp/mesos \</span><br><span class="line">  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \</span><br><span class="line">  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \</span><br><span class="line">  mesosphere/mesos-master:1.5.0</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --net=host --restart always --name m2 \</span><br><span class="line">  -e MESOS_PORT=5050 \</span><br><span class="line">  -e MESOS_HOSTNAME=192.168.24.179 \</span><br><span class="line">  -e MESOS_IP=192.168.24.179 \</span><br><span class="line">  -e MESOS_ZK=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \</span><br><span class="line">  -e MESOS_QUORUM=2 \</span><br><span class="line">  -e MESOS_REGISTRY=in_memory \</span><br><span class="line">  -e MESOS_LOG_DIR=/var/log/mesos \</span><br><span class="line">  -e MESOS_WORK_DIR=/var/tmp/mesos \</span><br><span class="line">  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \</span><br><span class="line">  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \</span><br><span class="line">  mesosphere/mesos-master:1.5.0</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --net=host --restart always --name m3 \</span><br><span class="line">  -e MESOS_PORT=5050 \</span><br><span class="line">  -e MESOS_HOSTNAME=192.168.24.178 \</span><br><span class="line">  -e MESOS_IP=192.168.24.178 \</span><br><span class="line">  -e MESOS_ZK=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \</span><br><span class="line">  -e MESOS_QUORUM=2 \</span><br><span class="line">  -e MESOS_REGISTRY=in_memory \</span><br><span class="line">  -e MESOS_LOG_DIR=/var/log/mesos \</span><br><span class="line">  -e MESOS_WORK_DIR=/var/tmp/mesos \</span><br><span class="line">  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \</span><br><span class="line">  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \</span><br><span class="line">  mesosphere/mesos-master:1.5.0</span><br></pre></td></tr></table></figure>
-<h5 id="marathon"><a href="#marathon" class="headerlink" title="marathon"></a>marathon</h5><p>192.168.24.178下部署marathon:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --net=host --restart always --privileged \</span><br><span class="line">  --name mm3 \</span><br><span class="line">  mesosphere/marathon:latest \</span><br><span class="line">  --master zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \</span><br><span class="line">  --zk zk://92.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/marathon \</span><br><span class="line">  --http_port 8089 \</span><br><span class="line">  --http_address 192.168.24.178</span><br></pre></td></tr></table></figure></p>
-<h5 id="slave"><a href="#slave" class="headerlink" title="slave"></a>slave</h5><p>在192.168.24.173下暂时不部署slave，但预留命名m1s1和m1s2.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it -d --restart always --net=host --name m1s1 --privileged \</span><br><span class="line">  -e MESOS_PORT=5051 \</span><br><span class="line">  -e MESOS_HOSTNAME=192.168.24.173 \</span><br><span class="line">  -e MESOS_IP=192.168.24.173 \</span><br><span class="line">  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \</span><br><span class="line">  -e MESOS_CONTAINERIZERS=docker,mesos \</span><br><span class="line">  -e MESOS_LOG_DIR=/var/log/mesos \</span><br><span class="line">  -e MESOS_WORK_DIR=/var/tmp/mesos \</span><br><span class="line">  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \</span><br><span class="line">  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \</span><br><span class="line">  mesosphere/mesos-slave:1.6.1-rc2</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it -d --restart always --net=host --name m1s2 --privileged \</span><br><span class="line">  -e MESOS_PORT=5052 \</span><br><span class="line">  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \</span><br><span class="line">  -e MESOS_LOG_DIR=/var/log/mesos \</span><br><span class="line">  -e MESOS_WORK_DIR=/var/tmp/mesos \</span><br><span class="line">  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \</span><br><span class="line">  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \</span><br><span class="line">  mesosphere/mesos-slave:1.6.1-rc2</span><br></pre></td></tr></table></figure>
-<p>在192.168.24.179下启动2个slave，分别命名为m2s1和m2s2.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it -d --restart always --net=host \</span><br><span class="line">  --name m2s1 \</span><br><span class="line">  --privileged \</span><br><span class="line">  -e MESOS_PORT=5051 \</span><br><span class="line">  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \</span><br><span class="line">  -e MESOS_SWITCH_USER=0 \</span><br><span class="line">  -e MESOS_CONTAINERIZERS=docker,mesos \</span><br><span class="line">  -e MESOS_LOG_DIR=/var/log/mesos \</span><br><span class="line">  -e MESOS_WORK_DIR=/var/tmp/mesos \</span><br><span class="line">  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \</span><br><span class="line">  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \</span><br><span class="line">  -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">  -v /cgroup:/cgroup \</span><br><span class="line">  -v /sys:/sys \</span><br><span class="line">  -v /usr/local/bin/docker:/usr/local/bin/docker \</span><br><span class="line">  mesosphere/mesos-slave:1.5.0 \</span><br><span class="line">  --ip=192.168.24.179</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it -d --restart always --net=host --name m2s2 --privileged \</span><br><span class="line">  -e MESOS_PORT=5052 \</span><br><span class="line">  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \</span><br><span class="line">  -e MESOS_LOG_DIR=/var/log/mesos \</span><br><span class="line">  -e MESOS_WORK_DIR=/var/tmp/mesos \</span><br><span class="line">  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \</span><br><span class="line">  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \</span><br><span class="line">  mesosphere/mesos-slave:1.6.1-rc2</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it -d --restart always --net=host --name m2s3 --privileged \</span><br><span class="line">  -e MESOS_PORT=5053 \</span><br><span class="line">  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \</span><br><span class="line">  -e MESOS_SWITCH_USER=0 \</span><br><span class="line">  -e MESOS_CONTAINERIZERS=docker,mesos \</span><br><span class="line">  -e MESOS_LOG_DIR=/var/log/mesos \</span><br><span class="line">  -e MESOS_WORK_DIR=/var/tmp/mesos \</span><br><span class="line">  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \</span><br><span class="line">  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \</span><br><span class="line">  -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">  -v /cgroup:/cgroup \</span><br><span class="line">  -v /sys:/sys \</span><br><span class="line">  -v /usr/local/bin/docker:/usr/local/bin/docker \</span><br><span class="line">  mesosphere/mesos-slave:1.6.1-rc2 \</span><br><span class="line">  --ip=192.168.24.179 \</span><br><span class="line">  --launcher=posix</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --net=host --privileged \</span><br><span class="line">  --name mesos_slave \</span><br><span class="line">  -e MESOS_PORT=5051 \</span><br><span class="line">  -e MESOS_MASTER=zk://192.168.24.179:2181/mesos \</span><br><span class="line">  -e MESOS_SWITCH_USER=0 \</span><br><span class="line">  -e MESOS_CONTAINERIZERS=docker,mesos \</span><br><span class="line">  -e MESOS_LOG_DIR=/var/log/mesos \</span><br><span class="line">  -e MESOS_WORK_DIR=/var/tmp/mesos \</span><br><span class="line">  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \</span><br><span class="line">  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \</span><br><span class="line">  -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">  -v /sys/fs/cgroup:/cgroup \</span><br><span class="line">  -v /sys:/sys \</span><br><span class="line">  -v /usr/bin/docker:/usr/local/bin/docker \</span><br><span class="line">  mesosphere/mesos-slave:1.1.0-2.0.107.ubuntu1404 \</span><br><span class="line">  --ip=192.168.24.179 \</span><br><span class="line">  --launcher=posix</span><br></pre></td></tr></table></figure>
-<p>在192.168.24.178下启动2个slave，分别命名为m3s1和m3s2.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it -d --restart always --net=host --name m3s1 --privileged \</span><br><span class="line">  -e MESOS_PORT=5053 \</span><br><span class="line">  -e MESOS_HOSTNAME=192.168.24.178 \</span><br><span class="line">  -e MESOS_IP=192.168.24.178 \</span><br><span class="line">  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \</span><br><span class="line">  -e MESOS_CONTAINERIZERS=docker,mesos \</span><br><span class="line">  -e MESOS_LOG_DIR=/var/log/mesos \</span><br><span class="line">  -e MESOS_WORK_DIR=/var/tmp/mesos \</span><br><span class="line">  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \</span><br><span class="line">  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \</span><br><span class="line">  -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">  -v /cgroup:/cgroup \</span><br><span class="line">  -v /sys:/sys \</span><br><span class="line">  -v /usr/local/bin/docker:/usr/local/bin/docker \</span><br><span class="line">  mesosphere/mesos-slave:1.6.1-rc2</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it -d --restart always --net=host --name m3s2 --privileged \</span><br><span class="line">  -e MESOS_PORT=5052 \</span><br><span class="line">   -e MESOS_HOSTNAME=192.168.24.178 \</span><br><span class="line">  -e MESOS_IP=192.168.24.178 \</span><br><span class="line">  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \</span><br><span class="line">  -e MESOS_LOG_DIR=/var/log/mesos \</span><br><span class="line">  -e MESOS_WORK_DIR=/var/tmp/mesos \</span><br><span class="line">  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \</span><br><span class="line">  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \</span><br><span class="line">  mesosphere/mesos-slave:1.6.1-rc2</span><br></pre></td></tr></table></figure>
-<h3 id="Spark嵌入"><a href="#Spark嵌入" class="headerlink" title="Spark嵌入"></a>Spark嵌入</h3>
+<h5 id="拉镜像"><a href="#拉镜像" class="headerlink" title="拉镜像"></a>拉镜像</h5><pre><code>$ docker pull mesosphere/mesos-master:1.6.1-rc2
+$ docker pull mesosphere/mesos-master:1.6.1-rc2
+</code></pre><h4 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h4><h5 id="设置host"><a href="#设置host" class="headerlink" title="设置host"></a>设置host</h5><p>分别登陆三台服务器设置主机ip到环境变量，或者在启动mesos的参数中设置，本次我们选择在启动参数中设置。</p>
+<pre><code>$ HOST_IP=192.168.24.17x
+</code></pre><h5 id="master"><a href="#master" class="headerlink" title="master"></a>master</h5><pre><code>$ docker run -d --net=host --restart always --name m1 \
+  -e MESOS_PORT=5050 \
+  -e MESOS_HOSTNAME=192.168.24.173 \
+  -e MESOS_IP=192.168.24.173 \
+  -e MESOS_ZK=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \
+  -e MESOS_QUORUM=2 \
+  -e MESOS_REGISTRY=in_memory \
+  -e MESOS_LOG_DIR=/var/log/mesos \
+  -e MESOS_WORK_DIR=/var/tmp/mesos \
+  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \
+  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \
+  mesosphere/mesos-master:1.5.0
+</code></pre><pre><code>$ docker run -d --net=host --restart always --name m2 \
+  -e MESOS_PORT=5050 \
+  -e MESOS_HOSTNAME=192.168.24.179 \
+  -e MESOS_IP=192.168.24.179 \
+  -e MESOS_ZK=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \
+  -e MESOS_QUORUM=2 \
+  -e MESOS_REGISTRY=in_memory \
+  -e MESOS_LOG_DIR=/var/log/mesos \
+  -e MESOS_WORK_DIR=/var/tmp/mesos \
+  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \
+  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \
+  mesosphere/mesos-master:1.5.0
+</code></pre><pre><code>$ docker run -d --net=host --restart always --name m3 \
+  -e MESOS_PORT=5050 \
+  -e MESOS_HOSTNAME=192.168.24.178 \
+  -e MESOS_IP=192.168.24.178 \
+  -e MESOS_ZK=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \
+  -e MESOS_QUORUM=2 \
+  -e MESOS_REGISTRY=in_memory \
+  -e MESOS_LOG_DIR=/var/log/mesos \
+  -e MESOS_WORK_DIR=/var/tmp/mesos \
+  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \
+  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \
+  mesosphere/mesos-master:1.5.0
+</code></pre><h5 id="marathon"><a href="#marathon" class="headerlink" title="marathon"></a>marathon</h5><p>192.168.24.178下部署marathon:</p>
+<pre><code>$ docker run -d --net=host --restart always --privileged \
+  --name mm3 \
+  mesosphere/marathon:latest \
+  --master zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \
+  --zk zk://92.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/marathon \
+  --http_port 8089 \
+  --http_address 192.168.24.178 
+</code></pre><h5 id="slave"><a href="#slave" class="headerlink" title="slave"></a>slave</h5><p>在192.168.24.173下暂时不部署slave，但预留命名m1s1和m1s2. </p>
+<pre><code>$ docker run -it -d --restart always --net=host --name m1s1 --privileged \
+  -e MESOS_PORT=5051 \
+  -e MESOS_HOSTNAME=192.168.24.173 \
+  -e MESOS_IP=192.168.24.173 \
+  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \
+  -e MESOS_CONTAINERIZERS=docker,mesos \
+  -e MESOS_LOG_DIR=/var/log/mesos \
+  -e MESOS_WORK_DIR=/var/tmp/mesos \
+  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \
+  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \
+  mesosphere/mesos-slave:1.6.1-rc2
+</code></pre><pre><code>$ docker run -it -d --restart always --net=host --name m1s2 --privileged \
+  -e MESOS_PORT=5052 \
+  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \
+  -e MESOS_LOG_DIR=/var/log/mesos \
+  -e MESOS_WORK_DIR=/var/tmp/mesos \
+  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \
+  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \
+  mesosphere/mesos-slave:1.6.1-rc2
+</code></pre><p>在192.168.24.179下启动2个slave，分别命名为m2s1和m2s2.</p>
+<pre><code>$ docker run -it -d --restart always --net=host \
+  --name m2s1 \
+  --privileged \
+  -e MESOS_PORT=5051 \
+  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \
+  -e MESOS_SWITCH_USER=0 \
+  -e MESOS_CONTAINERIZERS=docker,mesos \
+  -e MESOS_LOG_DIR=/var/log/mesos \
+  -e MESOS_WORK_DIR=/var/tmp/mesos \
+  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \
+  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /cgroup:/cgroup \
+  -v /sys:/sys \
+  -v /usr/local/bin/docker:/usr/local/bin/docker \
+  mesosphere/mesos-slave:1.5.0 \
+  --ip=192.168.24.179 
+</code></pre><pre><code>$ docker run -it -d --restart always --net=host --name m2s2 --privileged \
+  -e MESOS_PORT=5052 \
+  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \
+  -e MESOS_LOG_DIR=/var/log/mesos \
+  -e MESOS_WORK_DIR=/var/tmp/mesos \
+  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \
+  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \
+  mesosphere/mesos-slave:1.6.1-rc2
+</code></pre><pre><code>$ docker run -it -d --restart always --net=host --name m2s3 --privileged \
+  -e MESOS_PORT=5053 \
+  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \
+  -e MESOS_SWITCH_USER=0 \
+  -e MESOS_CONTAINERIZERS=docker,mesos \
+  -e MESOS_LOG_DIR=/var/log/mesos \
+  -e MESOS_WORK_DIR=/var/tmp/mesos \
+  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \
+  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /cgroup:/cgroup \
+  -v /sys:/sys \
+  -v /usr/local/bin/docker:/usr/local/bin/docker \
+  mesosphere/mesos-slave:1.6.1-rc2 \
+  --ip=192.168.24.179 \
+  --launcher=posix
+</code></pre><pre><code>docker run -d --net=host --privileged \
+  --name mesos_slave \
+  -e MESOS_PORT=5051 \
+  -e MESOS_MASTER=zk://192.168.24.179:2181/mesos \
+  -e MESOS_SWITCH_USER=0 \
+  -e MESOS_CONTAINERIZERS=docker,mesos \
+  -e MESOS_LOG_DIR=/var/log/mesos \
+  -e MESOS_WORK_DIR=/var/tmp/mesos \
+  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \
+  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /sys/fs/cgroup:/cgroup \
+  -v /sys:/sys \
+  -v /usr/bin/docker:/usr/local/bin/docker \
+  mesosphere/mesos-slave:1.1.0-2.0.107.ubuntu1404 \
+  --ip=192.168.24.179 \
+  --launcher=posix
+</code></pre><p>在192.168.24.178下启动2个slave，分别命名为m3s1和m3s2.</p>
+<pre><code>$ docker run -it -d --restart always --net=host --name m3s1 --privileged \
+  -e MESOS_PORT=5053 \
+  -e MESOS_HOSTNAME=192.168.24.178 \
+  -e MESOS_IP=192.168.24.178 \
+  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \
+  -e MESOS_CONTAINERIZERS=docker,mesos \
+  -e MESOS_LOG_DIR=/var/log/mesos \
+  -e MESOS_WORK_DIR=/var/tmp/mesos \
+  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \
+  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /cgroup:/cgroup \
+  -v /sys:/sys \
+  -v /usr/local/bin/docker:/usr/local/bin/docker \
+  mesosphere/mesos-slave:1.6.1-rc2
+</code></pre><pre><code>$ docker run -it -d --restart always --net=host --name m3s2 --privileged \
+  -e MESOS_PORT=5052 \
+   -e MESOS_HOSTNAME=192.168.24.178 \
+  -e MESOS_IP=192.168.24.178 \
+  -e MESOS_MASTER=zk://192.168.24.173:2181,192.168.24.179:2181,192.168.24.178:2181/mesos \
+  -e MESOS_LOG_DIR=/var/log/mesos \
+  -e MESOS_WORK_DIR=/var/tmp/mesos \
+  -v &quot;$(pwd)/log/mesos:/var/log/mesos&quot; \
+  -v &quot;$(pwd)/tmp/mesos:/var/tmp/mesos&quot; \
+  mesosphere/mesos-slave:1.6.1-rc2
+</code></pre><h3 id="Spark嵌入"><a href="#Spark嵌入" class="headerlink" title="Spark嵌入"></a>Spark嵌入</h3>
             <hr>
           </div>
           <br>
