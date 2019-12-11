@@ -13,3 +13,4 @@
 [submodule "themes/fluid"]
 	path = themes/fluid
 	url = git@github.com:fluid-dev/hexo-theme-fluid.git
+	ignore = dirty
