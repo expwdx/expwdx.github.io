@@ -15,16 +15,22 @@
   <meta name="author" content="Wangdx">
   <meta name="keywords" content>
   <title>Wangdx&#39;s Blog</title>
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
-  <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
-  <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
-  <link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
-  <link rel="stylesheet" href="/lib/nprogress/nprogress.css?v=0.2.0">
-  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
-  
-  <link rel="stylesheet" href="/css/main.css">
 
-  
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css">
+
+
 </head>
 
 
@@ -45,22 +51,37 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
         
+          
+          
+          
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
           </li>
         
+          
+          
+          
           <li class="nav-item">
             <a class="nav-link" href="/archives/">Archives</a>
           </li>
         
+          
+          
+          
           <li class="nav-item">
             <a class="nav-link" href="/categories/">Categories</a>
           </li>
         
+          
+          
+          
           <li class="nav-item">
             <a class="nav-link" href="/tags/">Tags</a>
           </li>
         
+          
+          
+          
           <li class="nav-item">
             <a class="nav-link" href="/about/">About</a>
           </li>
@@ -74,19 +95,27 @@
       </ul>
     </div>
   </div>
-
-
 </nav>
-    <div class="view intro-2"
-         style="background: url('/img/index.jpg')no-repeat center center;background-size: cover;">
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/default.png')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
       <div class="full-bg-img">
         <div class="mask rgba-black-light flex-center">
-          <div class="container text-center white-text wow fadeInUp">
-                    <span class="h2" id="subtitle">
-                      
-                    </span>
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
             
           </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="fas fa-angle-down scroll-down-arrow"></i>
+            </div>
+          
         </div>
       </div>
     </div>
@@ -95,7 +124,7 @@
   <main>
     
       <div class="container nopadding-md">
-        <div class="py-5 z-depth-3 board">
+        <div class="py-5 z-depth-3" id="board">
           
           <div class="container">
             <div class="row">
@@ -109,9 +138,12 @@
     <div class="col-12 col-md-8 m-auto">
       <a href="/2019/09/14/Docker Compose安装/">
         <p class="h4 index-header">Docker Compose安装</p>
-        <div class="index-excerpt">
+        
+        
           
-            <div class="index-text mb-1">安装 Docker Compose官方安装方法
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">安装 Docker Compose官方安装方法
 运行如下命令下载最新版本
 1$ sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 
@@ -125,17 +157,16 @@
 
 
 加速通道安装Docker Compose 存放在Git Hub，不太稳定。你可以也通过执行下面的命令，高速安装Docker Compose。123$ sudo curl -L https://get.daocloud.io/docker/comp</div>
-          
         </div>
       </a>
 
-        <div>
-          
-            <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
-          
-          
-          
-        </div>
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
+        
+        
+        
+      </div>
     </div>
   </div>
 
@@ -145,24 +176,26 @@
     <div class="col-12 col-md-8 m-auto">
       <a href="/2019/09/14/Docker安装方法/">
         <p class="h4 index-header">Ubuntu16.04&amp;14.04下的docker安装</p>
-        <div class="index-excerpt">
+        
+        
           
-            <div class="index-text mb-1">安装步骤卸载旧版本1$ sudo apt-get remove docker docker-engine docker.io
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">安装步骤卸载旧版本1$ sudo apt-get remove docker docker-engine docker.io
 安装linux的额外镜像包（仅ubuntu14.04需要）执行如下操作，允许你使用aufs存储驱动。ubuntu16.04使用默认的overlay2存储驱动。
 12345$ sudo apt-get update$ sudo apt-get install \    linux-image-extra-$(uname -r) \    linux-image-extra-virtual
 设置安装源通过如下步骤，设置安装源仓库，这里我们使用阿里源
 1234567$ sudo apt-get update$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common    $ curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -  $ </div>
-          
         </div>
       </a>
 
-        <div>
-          
-            <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
-          
-          
-          
-        </div>
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
+        
+        
+        
+      </div>
     </div>
   </div>
 
@@ -172,23 +205,25 @@
     <div class="col-12 col-md-8 m-auto">
       <a href="/2019/09/14/gitbook文档部署/">
         <p class="h4 index-header">docker配合gitbook部署文档</p>
-        <div class="index-excerpt">
+        
+        
           
-            <div class="index-text mb-1">安装gitbook1cnpm install -g gitbook-cli
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">安装gitbook1cnpm install -g gitbook-cli
 构建目录结构12345nginx-docker    --default.conf    --docker-compose.yml    --web        ---note
 拉取文档仓库并编译1git pull &amp;&amp; rm -rf _book &amp;&amp; gitbook install &amp;&amp; gitbook build .
 编写nginx服务配置123456789101112131415➜  nginx-docker cat default.conf server &#123;  listen 80;  server_name xxx.xxx.xx.xxx;  root /web;  location /note &#123;    alias /web/note/_book;    index index.html;  &#125;  location  ^~ gitbook/ &#123;    root /web/gitbook/;   &#125;&#12</div>
-          
         </div>
       </a>
 
-        <div>
-          
-            <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
-          
-          
-          
-        </div>
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
+        
+        
+        
+      </div>
     </div>
   </div>
 
@@ -198,9 +233,12 @@
     <div class="col-12 col-md-8 m-auto">
       <a href="/2019/09/14/hello-world/">
         <p class="h4 index-header">Hello World</p>
-        <div class="index-excerpt">
+        
+        
           
-            <div class="index-text mb-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
 Quick StartCreate a new post1$ hexo new "My New Post"
 More info: Writing
 Run server1$ hexo server
@@ -210,17 +248,16 @@ More info: Generating
 Deploy to remote sites1$ hexo deploy
 More info: Deployment
 </div>
-          
         </div>
       </a>
 
-        <div>
-          
-            <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
-          
-          
-          
-        </div>
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
+        
+        
+        
+      </div>
     </div>
   </div>
 
@@ -230,9 +267,12 @@ More info: Deployment
     <div class="col-12 col-md-8 m-auto">
       <a href="/2019/09/14/基于docker的 spark on mesos 部署/">
         <p class="h4 index-header">基于docker的Spark on Mesos部署</p>
-        <div class="index-excerpt">
+        
+        
           
-            <div class="index-text mb-1">前提概要储备已搭好一个三台Zookeeper的集群，相关信息如下：主机系统 | ip地址 | ID— | — | —ubuntu16.04 server | 192.168.24.173 | 1ubuntu16.04 server | 192.168.24.179 | 2ubuntu16.04 server | 192.168.24.178 | 3
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">前提概要储备已搭好一个三台Zookeeper的集群，相关信息如下：主机系统 | ip地址 | ID— | — | —ubuntu16.04 server | 192.168.24.173 | 1ubuntu16.04 server | 192.168.24.179 | 2ubuntu16.04 server | 192.168.24.178 | 3
 平台软件版本规划
 
 
@@ -258,17 +298,16 @@ spark
 Mesos部署拉取docker镜像镜像源master: mesosphere/mesos-masterslave: mesosphere/mesos-slave
 拉镜像12$ docker pull mesosphere/mesos-master:1.6.1-rc2$ docker pull mesosphere/mesos-master:1.6.1-rc2
 启动容器设置host分别登陆三台服务器设置主机ip到环境变量，或者在启动mesos的参数中设置，本次我们选择在启动参数中设置。1$ HOST_IP=</div>
-          
         </div>
       </a>
 
-        <div>
-          
-            <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
-          
-          
-          
-        </div>
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
+        
+        
+        
+      </div>
     </div>
   </div>
 
@@ -278,26 +317,30 @@ Mesos部署拉取docker镜像镜像源master: mesosphere/mesos-masterslave: meso
     <div class="col-12 col-md-8 m-auto">
       <a href="/2019/09/14/通过docker搭建zookeeper集群/">
         <p class="h4 index-header">通过docker搭建zookeeper</p>
-        <div class="index-excerpt">
+        
+        
           
-            <div class="index-text mb-1">参考资料ZooKeeper Getting Started GuideMesos+Zookeeper+Marathon的Docker管理平台部署记录docker部署zookeeper集群Docker环境搭建ZooKeeper集群
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">参考资料ZooKeeper Getting Started GuideMesos+Zookeeper+Marathon的Docker管理平台部署记录docker部署zookeeper集群Docker环境搭建ZooKeeper集群
 环境组网组网策略准备三台server搭建zookeeper最小化集群，以达成主备份关系，为后期mesos集群的管理和调度做准备
 节点主机配置储备三台服务器如下：主机系统 | ip地址—|—ubuntu16.04 server | 192.168.24.173ubuntu16.04 server | 192.168.24.179ubuntu16.04 server | 192.168.24.178
 集群配置软件配置软件版本我们选择docker启动容器的方法来部署zookeeper，考虑到后期部署spark on mesos时版本的兼容性，这里选择zookeeper-3.4.13 。如下为集群的软件版本规划：软件 | 版本— | —zookeeper | 3.4.13mesos | 1.6.1spark | 2.2.2
 zookeeper的docker容器选择在参</div>
-          
         </div>
       </a>
 
-        <div>
-          
-            <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
-          
-          
-          
-        </div>
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-14&nbsp;&nbsp;
+        
+        
+        
+      </div>
     </div>
   </div>
+
+
 
 
 
@@ -308,6 +351,12 @@ zookeeper的docker容器选择在参</div>
       </div>
     
   </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
 
   
     <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
@@ -339,21 +388,77 @@ zookeeper的docker容器选择在参</div>
     <i class="iconfont icon-love"></i>
     <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
     <br>
+
     
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
   </div>
 </footer>
 
 <!-- SCRIPTS -->
-<script src="/lib/mdbootstrap/js/jquery-3.4.1.min.js"></script>
-<script src="/lib/mdbootstrap/js/popper.min.js"></script>
-<script src="/lib/mdbootstrap/js/bootstrap.min.js?v=4.3.1"></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
-<script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
-<script src="/js/main.js"></script>
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
 
 
 
-  <script src="/lib/typed/typed.min.js?v=2.0.9"></script>
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
   <script>
     var typed = new Typed('#subtitle', {
       strings: [
@@ -372,7 +477,8 @@ zookeeper的docker容器选择在参</div>
   </script>
 
 
-  <script src="/lib/anchor/anchor.min.js?v=4.2.0"></script>
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
   <script>
     anchors.options = {
       placement: "right",
@@ -389,7 +495,7 @@ zookeeper的docker容器选择在参</div>
 
 
 
-  <script src="/js/local-search.js"></script>
+  <script src="/js/local-search.js" ></script>
   <script>
     var path = "/local-search.xml";
     var inputArea = document.querySelector("#local-search-input");
@@ -398,6 +504,30 @@ zookeeper的docker容器选择在参</div>
       this.onclick = null
     }
   </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+
+
+
 
 </body>
 </html>
