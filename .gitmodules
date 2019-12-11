@@ -1,0 +1,12 @@
+[submodule "themes/3-hexo"]
+	path = themes/3-hexo
+	url = git@github.com:yelog/hexo-theme-3-hexo.git
+[submodule "themes/next"]
+	path = themes/next
+	url = git@github.com:theme-next/hexo-theme-next.git
+[submodule "themes/yilia"]
+	path = themes/yilia
+	url = git@github.com:litten/hexo-theme-yilia.git
+[submodule "themes/material"]
+	path = themes/material
+	url = git@github.com:viosey/hexo-theme-material.git
