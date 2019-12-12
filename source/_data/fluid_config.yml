@@ -256,7 +256,7 @@ archive:
 # Categories Page
 #---------------------------
 category:
-  banner_img: /img/achive.jpg
+  banner_img: /img/categroy.jpeg
   banner_img_height: 80  # available: 0 - 100
 
 
@@ -265,7 +265,7 @@ category:
 # Tags Page
 #---------------------------
 tag:
-  banner_img: /img/achive.jpg
+  banner_img: /img/tag.jpeg
   banner_img_height: 80  # available: 0 - 100
   tagcloud: # 标签云
     min_font: 15
